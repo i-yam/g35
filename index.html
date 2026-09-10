@@ -1,196 +1,448 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>G35 Advisory Group</title>
+<meta name="description" content="G35 Advisory Group counsels leaders at the intersection of artificial intelligence, strategy, and business growth. Senior-led engagements, accepted selectively. Dubai, UAE.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap">
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  :root {
-    --ink: #0e0c0a; --parchment: #f5f0e8; --gold: #b8974a;
-    --gold-light: #d4b06a; --warm-gray: #7a7068; --rule: rgba(184,151,74,0.3);
+/* =================================================================
+   G35 Advisory Group — site styles
+   Spectral (serif) for voice, IBM Plex Mono for the utility layer.
+   Palette: bone ground, brown-black ink, claret accent used once.
+   ================================================================= */
+
+:root{
+  --ground:#EDECE6;
+  --surface:#F6F5F1;
+  --ink:#1B1714;
+  --ink-soft:#524B45;
+  --ink-faint:#8C847C;
+  --rule:#D9D5CC;
+  --rule-soft:#E4E1D9;
+  --accent:#6E2233;
+  --serif:"Spectral",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --measure:36rem;
+  --page:68rem;
+  --gutter:clamp(20px,5vw,56px);
+}
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#16130F;
+    --surface:#1E1A15;
+    --ink:#EDE9E1;
+    --ink-soft:#ADA49A;
+    --ink-faint:#7C746A;
+    --rule:#332C24;
+    --rule-soft:#282219;
+    --accent:#C08292;
   }
-  html { scroll-behavior: smooth; }
-  body { background: var(--ink); color: var(--parchment); font-family: 'Montserrat', sans-serif; font-weight: 300; overflow-x: hidden; }
-  body::before {
-    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1000; opacity: 0.6;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  }
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 2rem 4rem; background: linear-gradient(to bottom, rgba(14,12,10,0.95), transparent); }
-  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
-  .nav-links { display: flex; gap: 3rem; list-style: none; }
-  .nav-links a { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--warm-gray); text-decoration: none; transition: color 0.3s; }
-  .nav-links a:hover { color: var(--gold-light); }
-  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10vw; position: relative; overflow: hidden; }
-  .hero::after { content: ''; position: absolute; top: 0; right: 18vw; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent, var(--rule) 20%, var(--rule) 80%, transparent); }
-  .hero-eyebrow { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 1s ease 0.2s forwards; }
-  .hero-eyebrow::before { content: '—'; margin-right: 1rem; opacity: 0.5; }
-  h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 8vw, 8rem); font-weight: 300; line-height: 1.0; max-width: 14ch; opacity: 0; animation: fadeUp 1s ease 0.4s forwards; }
-  h1 em { font-style: italic; color: var(--gold-light); }
-  .hero-sub { margin-top: 3rem; font-size: 0.75rem; letter-spacing: 0.15em; line-height: 1.9; color: var(--warm-gray); max-width: 38ch; opacity: 0; animation: fadeUp 1s ease 0.6s forwards; }
-  .hero-cta { margin-top: 4rem; display: flex; align-items: center; gap: 3rem; opacity: 0; animation: fadeUp 1s ease 0.8s forwards; }
-  .btn-primary { font-family: 'Montserrat', sans-serif; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ink); background: var(--gold); border: none; padding: 1rem 2.5rem; cursor: pointer; transition: background 0.3s, transform 0.2s; text-decoration: none; display: inline-block; }
-  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
-  .btn-ghost { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--warm-gray); text-decoration: none; display: flex; align-items: center; gap: 0.75rem; transition: color 0.3s; }
-  .btn-ghost::after { content: '→'; font-size: 0.9rem; transition: transform 0.3s; }
-  .btn-ghost:hover { color: var(--parchment); }
-  .btn-ghost:hover::after { transform: translateX(4px); }
-  .roman { position: absolute; right: 4vw; bottom: 8rem; font-family: 'Cormorant Garamond', serif; font-size: clamp(8rem, 18vw, 22rem); font-weight: 300; color: rgba(184,151,74,0.04); line-height: 1; user-select: none; pointer-events: none; opacity: 0; animation: fadeUp 1.5s ease 0.3s forwards; }
-  .divider { display: flex; align-items: center; gap: 2rem; padding: 0 10vw; margin: 6rem 0; }
-  .divider-line { flex: 1; height: 1px; background: var(--rule); }
-  .divider-ornament { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--gold); opacity: 0.5; }
-  .services { padding: 6rem 10vw; }
-  .section-label { font-size: 0.55rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 4rem; display: flex; align-items: center; gap: 1.5rem; }
-  .section-label::after { content: ''; flex: 0 0 60px; height: 1px; background: var(--rule); }
-  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--rule); }
-  .service-item { padding: 3.5rem 3rem 3.5rem 0; border-right: 1px solid var(--rule); position: relative; overflow: hidden; transition: background 0.4s; }
-  .service-item:last-child { border-right: none; padding-right: 0; }
-  .service-item:not(:first-child) { padding-left: 3rem; }
-  .service-item:hover { background: rgba(184,151,74,0.03); }
-  .service-num { font-family: 'Cormorant Garamond', serif; font-size: 0.7rem; color: var(--gold); opacity: 0.6; letter-spacing: 0.15em; margin-bottom: 2rem; display: block; }
-  .service-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; line-height: 1.2; margin-bottom: 1.5rem; color: var(--parchment); }
-  .service-desc { font-size: 0.7rem; line-height: 2; color: var(--warm-gray); letter-spacing: 0.05em; }
-  .philosophy { padding: 8rem 10vw; display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; align-items: center; border-top: 1px solid var(--rule); }
-  .philosophy-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.3; color: var(--parchment); }
-  .philosophy-quote .accent { color: var(--gold-light); font-style: italic; }
-  .philosophy-body p { font-size: 0.72rem; line-height: 2.1; color: var(--warm-gray); letter-spacing: 0.04em; margin-bottom: 1.5rem; }
-  .philosophy-body p:last-child { margin-bottom: 0; }
-  .contact { padding: 8rem 10vw; display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; align-items: start; border-top: 1px solid var(--rule); }
-  .contact-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.1; color: var(--parchment); }
-  .contact-headline em { display: block; font-style: italic; color: var(--gold-light); }
-  .contact-sub { margin-top: 2rem; font-size: 0.7rem; line-height: 2; color: var(--warm-gray); max-width: 36ch; }
-  .contact-details { padding-top: 1rem; }
-  .contact-item { padding: 2rem 0; border-bottom: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; }
-  .contact-item-label { font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--warm-gray); }
-  .contact-item-value { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--parchment); letter-spacing: 0.05em; }
-  .email-link { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); transition: color 0.3s, border-color 0.3s; }
-  .email-link:hover { color: var(--gold-light); border-color: var(--gold-light); }
-  .contact-btn { margin-top: 3rem; display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ink); background: var(--gold); border: none; padding: 1.1rem 3rem; cursor: pointer; transition: background 0.3s, transform 0.2s; }
-  .contact-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
-  footer { padding: 3rem 10vw; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; }
-  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); opacity: 0.6; }
-  .footer-copy { font-size: 0.55rem; letter-spacing: 0.15em; color: var(--warm-gray); opacity: 0.5; }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  @media (max-width: 900px) {
-    nav { padding: 1.5rem 2rem; } .nav-links { display: none; } .hero { padding: 0 6vw; }
-    .services-grid, .philosophy, .contact { grid-template-columns: 1fr; }
-    .service-item { border-right: none; border-bottom: 1px solid var(--rule); padding-right: 0 !important; padding-left: 0 !important; }
-    .roman { display: none; }
-    .divider, .services, .philosophy, .contact { padding-left: 6vw; padding-right: 6vw; }
-    footer { flex-direction: column; gap: 1rem; text-align: center; }
-  }
+}
+:root[data-theme="dark"]{
+  --ground:#16130F;
+  --surface:#1E1A15;
+  --ink:#EDE9E1;
+  --ink-soft:#ADA49A;
+  --ink-faint:#7C746A;
+  --rule:#332C24;
+  --rule-soft:#282219;
+  --accent:#C08292;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  font-weight:300;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+.wrap{
+  max-width:var(--page);
+  margin:0 auto;
+  padding-inline:var(--gutter);
+}
+
+/* --- utility layer -------------------------------------------- */
+.label{
+  font-family:var(--mono);
+  font-size:.68rem;
+  font-weight:400;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  margin:0;
+}
+
+a{color:inherit}
+a:focus-visible,button:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
+
+/* --- masthead -------------------------------------------------- */
+.masthead{border-bottom:1px solid var(--rule-soft)}
+.masthead .wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;
+  padding-block:22px;
+}
+.wordmark{
+  font-family:var(--serif);
+  font-size:1.05rem;
+  font-weight:400;
+  letter-spacing:.02em;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.wordmark .g{font-variant-numeric:lining-nums}
+.masthead nav{display:flex;gap:clamp(16px,3vw,32px);flex-wrap:wrap}
+.masthead nav a{
+  font-family:var(--mono);
+  font-size:.68rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  text-decoration:none;
+  padding-block:4px;
+}
+.masthead nav a:hover{color:var(--accent)}
+
+/* --- hero ------------------------------------------------------ */
+.hero{padding-block:clamp(72px,13vw,132px) clamp(56px,9vw,92px)}
+.hero h1{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(2.5rem,7.4vw,4.5rem);
+  line-height:1.04;
+  letter-spacing:-.022em;
+  margin:26px 0 0;
+  max-width:15ch;
+  text-wrap:balance;
+}
+.hero h1 em{
+  font-style:italic;
+  font-weight:400;
+  color:var(--accent);
+}
+.hero .lede{
+  margin:30px 0 0;
+  max-width:var(--measure);
+  font-size:1.14rem;
+  color:var(--ink-soft);
+}
+.hero-actions{
+  display:flex;gap:14px;flex-wrap:wrap;
+  margin-top:38px;
+}
+
+.btn{
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  text-decoration:none;
+  padding:13px 22px;
+  border:1px solid var(--ink);
+  color:var(--ink);
+  background:transparent;
+  transition:background .18s ease,color .18s ease,border-color .18s ease;
+}
+.btn:hover{background:var(--ink);color:var(--ground)}
+.btn--quiet{border-color:var(--rule);color:var(--ink-soft)}
+.btn--quiet:hover{background:transparent;border-color:var(--ink);color:var(--ink)}
+
+/* --- sections: asymmetric label column ------------------------- */
+section{padding-block:clamp(52px,8vw,84px)}
+section + section{border-top:1px solid var(--rule-soft)}
+
+.cols{
+  display:grid;
+  grid-template-columns:9.5rem minmax(0,1fr);
+  gap:clamp(20px,4vw,48px);
+  align-items:start;
+}
+@media (max-width:720px){
+  .cols{grid-template-columns:1fr;gap:18px}
+}
+
+h2{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(1.6rem,3.4vw,2.15rem);
+  line-height:1.2;
+  letter-spacing:-.015em;
+  margin:0 0 22px;
+  max-width:22ch;
+  text-wrap:balance;
+}
+h2 em{font-style:italic;font-weight:400;color:var(--accent)}
+p{margin:0 0 17px;max-width:var(--measure)}
+p:last-child{margin-bottom:0}
+
+/* --- expertise ------------------------------------------------- */
+.practices{
+  display:grid;
+  gap:0;
+  margin:0;
+  border-top:1px solid var(--rule);
+}
+.practice{
+  display:grid;
+  grid-template-columns:12.5rem minmax(0,1fr);
+  gap:clamp(14px,3vw,40px);
+  padding-block:26px;
+  border-bottom:1px solid var(--rule);
+  align-items:start;
+}
+@media (max-width:720px){
+  .practice{grid-template-columns:1fr;gap:8px}
+}
+.practice h3{
+  font-family:var(--mono);
+  font-size:.7rem;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink);
+  margin:5px 0 0;
+}
+.practice p{margin:0;color:var(--ink-soft);max-width:38rem}
+
+/* --- pull quote ------------------------------------------------ */
+.pull{
+  font-size:clamp(1.3rem,2.9vw,1.75rem);
+  font-style:italic;
+  font-weight:300;
+  line-height:1.35;
+  letter-spacing:-.012em;
+  margin:0 0 30px;
+  max-width:26ch;
+  text-wrap:balance;
+}
+
+/* --- engagement / availability --------------------------------- */
+.status{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  margin:0 0 22px;
+}
+.status .dot{
+  width:7px;height:7px;flex:none;
+  background:var(--accent);
+  border-radius:50%;
+}
+.contact-line{
+  margin-top:26px;
+  font-size:1.14rem;
+}
+.contact-line a{
+  color:var(--accent);
+  text-decoration:none;
+  border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent);
+  padding-bottom:2px;
+}
+.contact-line a:hover{border-bottom-color:var(--accent)}
+
+/* --- colophon -------------------------------------------------- */
+.colophon{
+  border-top:1px solid var(--rule);
+  background:var(--surface);
+  padding-block:34px;
+}
+.colophon .wrap{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:18px;flex-wrap:wrap;
+}
+.colophon p,.colophon a{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  margin:0;
+  text-decoration:none;
+}
+.colophon nav{display:flex;gap:clamp(14px,3vw,28px);flex-wrap:wrap}
+.colophon a:hover{color:var(--accent)}
+
+/* =================================================================
+   Legal notice page
+   ================================================================= */
+.doc-head{padding-block:clamp(60px,10vw,104px) 0}
+.doc-head h1{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(2.1rem,5.2vw,3rem);
+  line-height:1.12;
+  letter-spacing:-.02em;
+  margin:22px 0 20px;
+  max-width:18ch;
+  text-wrap:balance;
+}
+.doc-head .lede{
+  margin:0;max-width:var(--measure);
+  font-size:1.08rem;color:var(--ink-soft);
+}
+.doc section{padding-block:clamp(38px,5vw,52px)}
+.doc h2{
+  font-size:clamp(1.25rem,2.4vw,1.5rem);
+  margin:0 0 16px;
+}
+.doc .cols{grid-template-columns:9.5rem minmax(0,1fr)}
+@media (max-width:720px){.doc .cols{grid-template-columns:1fr}}
+
+.register{
+  border-top:1px solid var(--rule);
+  margin:0;
+  max-width:42rem;
+}
+.register div{
+  display:grid;
+  grid-template-columns:12rem minmax(0,1fr);
+  gap:6px 24px;
+  padding-block:15px;
+  border-bottom:1px solid var(--rule-soft);
+}
+@media (max-width:560px){
+  .register div{grid-template-columns:1fr;gap:2px}
+}
+.register dt{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  margin:0;padding-top:4px;
+}
+.register dd{
+  margin:0;
+  font-size:.98rem;
+  font-variant-numeric:tabular-nums;
+}
+.register dd a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+.register dd a:hover{border-bottom-color:var(--accent)}
+
+.note{
+  font-size:.92rem;
+  color:var(--ink-faint);
+  max-width:var(--measure);
+}
+.doc p a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+.doc p a:hover{border-bottom-color:var(--accent)}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo">G35 Advisory Group</div>
-  <ul class="nav-links">
-    <li><a href="#services">Expertise</a></li>
-    <li><a href="#philosophy">Philosophy</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<section class="hero">
-  <p class="hero-eyebrow">Advisory &amp; Strategy</p>
-  <h1>The <em>finest</em> minds in AI &amp; growth.</h1>
-  <p class="hero-sub">We counsel leaders at the intersection of artificial intelligence, strategy, and business growth — where the decisions that matter are never simple.</p>
-  <div class="hero-cta">
-    <a href="mailto:mail@g35.group" class="btn-primary">Begin a Conversation</a>
-    <a href="#services" class="btn-ghost">Our Expertise</a>
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="index.html"><span class="g">G35</span> Advisory Group</a>
+    <nav aria-label="Primary">
+      <a href="#expertise">Expertise</a>
+      <a href="#philosophy">Philosophy</a>
+      <a href="#engagements">Contact</a>
+    </nav>
   </div>
-  <div class="roman">I</div>
-</section>
+</header>
 
-<div class="divider">
-  <div class="divider-line"></div>
-  <span class="divider-ornament">&#10022;</span>
-  <div class="divider-line"></div>
-</div>
+<main>
 
-<section class="services reveal" id="services">
-  <p class="section-label">Our Expertise</p>
-  <div class="services-grid">
-    <div class="service-item">
-      <span class="service-num">I.</span>
-      <h3 class="service-title">Artificial Intelligence</h3>
-      <p class="service-desc">From LLM integration to AI-native product architecture, we help organizations navigate the transformation from AI curiosity to competitive advantage — with precision and without hype.</p>
-    </div>
-    <div class="service-item">
-      <span class="service-num">II.</span>
-      <h3 class="service-title">Corporate Strategy</h3>
-      <p class="service-desc">AI is reshaping competitive landscapes faster than most boards can convene. We help leadership teams reposition their organizations around AI-driven models — identifying where intelligence creates durable advantage and where it merely creates noise.</p>
-    </div>
-    <div class="service-item">
-      <span class="service-num">III.</span>
-      <h3 class="service-title">Business Growth</h3>
-      <p class="service-desc">We architect growth through AI — building the revenue models, market entry strategies, and operational capabilities that allow organizations to scale intelligently. Not just faster, but fundamentally differently.</p>
+  <div class="wrap">
+    <div class="hero">
+      <p class="label">Dubai &nbsp;·&nbsp; Established counsel</p>
+      <h1>The <em>finest</em> minds in AI &amp; growth.</h1>
+      <p class="lede">We counsel leaders at the intersection of artificial intelligence, strategy, and business growth — at the point where a technical decision becomes a commercial one.</p>
+      <div class="hero-actions">
+        <a class="btn" href="mailto:mail@g35.group">Request an Introduction</a>
+        <a class="btn btn--quiet" href="#expertise">Our Expertise</a>
+      </div>
     </div>
   </div>
-</section>
 
-<section class="philosophy reveal" id="philosophy">
-  <div>
-    <p class="section-label">Our Philosophy</p>
-    <blockquote class="philosophy-quote">
-      Counsel that changes the trajectory of a company <span class="accent">deserves more than a slide deck.</span>
-    </blockquote>
-  </div>
-  <div class="philosophy-body">
-    <p>G35 Advisory Group was founded on a refusal. A refusal to produce generic frameworks dressed in bespoke language. A refusal to staff engagements with junior associates while partners collect fees. A refusal to be impressive on paper while being ordinary in practice.</p>
-    <p>We work with a deliberately small number of clients each year. Every engagement is led by a principal. Every recommendation is one we would stake our name on — because we do.</p>
-    <p>If you are looking for reassurance, there are many firms that excel at providing it. If you are looking for clarity, we should speak.</p>
-  </div>
-</section>
+  <div class="wrap">
 
-<section class="contact reveal" id="contact">
-  <div>
-    <p class="section-label">Engagements</p>
-    <h2 class="contact-headline">We accept <em>very few clients.</em></h2>
-    <p class="contact-sub">We do not take inbound from every inquiry. We take the ones that matter. If you believe this is yours, tell us why.</p>
-  </div>
-  <div class="contact-details">
-    <div class="contact-item">
-      <span class="contact-item-label">New Engagements</span>
-      <span class="contact-item-value"><a href="mailto:mail@g35.group" class="email-link">mail@g35.group</a></span>
-    </div>
-    <div class="contact-item">
-      <span class="contact-item-label">Location</span>
-      <span class="contact-item-value">Dubai, UAE</span>
-    </div>
-    <div class="contact-item">
-      <span class="contact-item-label">Availability</span>
-      <span class="contact-item-value">Q3 2026 &mdash; Limited</span>
-    </div>
-    <button class="contact-btn" onclick="window.location.href='mailto:mail@g35.group'">Request an Introduction</button>
-  </div>
-</section>
+    <section id="expertise" aria-labelledby="expertise-h">
+      <div class="cols">
+        <p class="label">Our Expertise</p>
+        <div>
+          <h2 id="expertise-h">Three practices, held by the same people.</h2>
+          <p>Most questions worth asking cut across all three. We do not hand a client between departments.</p>
+          <div class="practices">
+            <div class="practice">
+              <h3>Artificial Intelligence</h3>
+              <p>LLM integration and AI-native architecture — what to build, what to buy, and what the model can honestly be trusted to do in production.</p>
+            </div>
+            <div class="practice">
+              <h3>Corporate Strategy</h3>
+              <p>Repositioning organizations around AI-driven models, including the operating structure and the sequence in which the change is made.</p>
+            </div>
+            <div class="practice">
+              <h3>Business Growth</h3>
+              <p>Revenue models and operational scaling — pricing, go-to-market, and the unit economics that decide whether growth compounds or merely accumulates.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<footer>
-  <div class="footer-logo">G35 Advisory Group</div>
-  <p class="footer-copy">&copy; 2026 G35 Advisory Group. All rights reserved.</p>
+    <section id="philosophy" aria-label="Our philosophy">
+      <div class="cols">
+        <p class="label">Our Philosophy</p>
+        <div>
+          <p class="pull">Counsel that changes the trajectory of a company deserves more than a slide deck.</p>
+          <p>The firm was founded on a narrow conviction: that generic frameworks applied to a specific company produce a document, not a decision. We start from the situation in front of us.</p>
+          <p>Every engagement is led by the people you meet first. There is no team behind the team, no juniors learning your business at your expense, and no deliverable whose purpose is to demonstrate effort.</p>
+          <p>We would rather be useful than impressive. In practice that means saying what we think, including when it is not what was hoped for, and leaving a client with something they can act on the same week.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="engagements" aria-labelledby="engagements-h">
+      <div class="cols">
+        <p class="label">Engagements</p>
+        <div>
+          <p class="status"><span class="dot" aria-hidden="true"></span>Availability — Q1 2027 · Limited</p>
+          <h2 id="engagements-h">We accept <em>very few clients</em>.</h2>
+          <p>Depth is a function of attention, and attention does not scale. We review every inquiry ourselves and take on only the work we believe we can materially change.</p>
+          <p>If you are weighing a decision of consequence — a platform bet, a repositioning, a growth model that has stopped working — write to us. Tell us the situation and what you have already ruled out.</p>
+          <p class="contact-line"><a href="mailto:mail@g35.group">mail@g35.group</a></p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <p>Dubai, UAE &nbsp;·&nbsp; © 2026 G35 Advisory Group</p>
+    <nav aria-label="Secondary">
+      <a href="legal.html">Legal Notice</a>
+      <a href="mailto:mail@g35.group">Request an Introduction</a>
+    </nav>
+  </div>
 </footer>
 
-<script>
-(function() {
-  var els = document.querySelectorAll('.reveal');
-  // Force visible immediately as a baseline
-  function showAll() { els.forEach(function(el) { el.classList.add('visible'); }); }
-  // Try intersection observer for the nice fade-in effect
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-    }, { threshold: 0.04, rootMargin: '0px 0px -10px 0px' });
-    els.forEach(function(el) { io.observe(el); });
-  }
-  // Guarantee visibility after 600ms no matter what
-  setTimeout(showAll, 600);
-})();
-</script>
 </body>
 </html>
